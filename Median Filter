@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+int rep;
+
+printf("how many times would you like to read the data for each axis?/n/n");
+scanf("%d", 
