@@ -16,7 +16,7 @@ float median(float arr[re])
 				for (int q = --re; q > n; q--) acc_x[q] = acc_x[q-1];
 				acc_x[n] = arr[i];
 				break;
-			} else if (n == 40 acc_x[n] = arr[i];
+			} else if (n == 4) acc_x[n] = arr[i];
 		}
 	}
 	return acc_x[3]; 
