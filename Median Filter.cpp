@@ -10,7 +10,7 @@ void ask()
 	std::vector<int> reps(re);
 }
 
-float median(float arr[re])
+float median(float arr[re]) 
 {
 	for(int i = 0; i < reps; i++) {
 		for(int n; n < reps; n++) {
@@ -21,6 +21,6 @@ float median(float arr[re])
 			} else if (n == (reps-1) acc_x.at(n) = arr[i];
 		}
 	}
-	return acc_x[acc_x.size() / 2]; 
+	return acc_x[acc_x.size() / 2]; // produces middle value. 
 }
  
