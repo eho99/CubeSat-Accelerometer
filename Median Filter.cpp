@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 
 sort(acc_x.begin(), acc_x.end() ) // include with the accelerometer code to sort the values from least to greatest. 
 
