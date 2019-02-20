@@ -5,12 +5,19 @@
 #include <cmath>
 //delta time should be 10 ms
 #define DELTA_TIME 10
+#define CONSTANT_1 0.98
+#define CONSTANT_2 0.02
+
+float compFilter(angleComp, accel_data, gyro_data)
+{
+	finalAngle = CONSTANT_1 * (angleComp + gyro_data) + CONSTANT_2 * (accel_data)
+}
 
 float median(vector<int> arr)
 {
   sort(arr.begin(), arr.end());
-  if(re % 2 == 1) return arr[re/2];
-  else (re % 2 == 0) return (arr[re/2] + arr[re/2+1]) / 2;
+  if(re.size() % 2 == 1) return arr[re.size()-1 / 2];
+  else (re % 2 == 0) return ((arr[re.size()/2] + arr[re/2-1]) / 2);
 }
 
 void read_imu( uint8_t card, uint8_t reg) //reads the raw values
@@ -60,8 +67,13 @@ int main(int argc, char *argv[])
       angle_gz += (gyro_z.at(i) - gyro_z.at(i-1)) * DELTA_TIME;
     }
     
-    //complimentary filter
-    
+      //complimentary filter
+
+		/*finalAngle_x += compFilter(angle_gx, )
+		 *finalAngle_y += compFilter(angle_gy, )
+		 *finalAngle_z += compFilter(angle_gz, )
+		 */
+
     //output for excel data table -> graph.
 	` 
     usleep(DELTA_TIME);
