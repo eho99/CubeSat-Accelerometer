@@ -16,8 +16,11 @@ float compFilter(angleComp, accel_data, gyro_data)
 float median(vector<int> arr)
 {
   sort(arr.begin(), arr.end());
-  if(re.size() % 2 == 1) return arr[re.size()-1 / 2];
-  else (re % 2 == 0) return ((arr[re.size()/2] + arr[re/2-1]) / 2);
+  if int % 5 == 0
+  {
+      if(re.size() % 2 == 1) return arr[re.size()-1 / 2];
+      else (re % 2 == 0) return ((arr[re.size()/2] + arr[re/2-1]) / 2);
+  }
 }
 
 void read_imu( uint8_t card, uint8_t reg) //reads the raw values
