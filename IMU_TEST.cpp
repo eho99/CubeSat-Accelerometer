@@ -72,10 +72,10 @@ int main(int argc, char *argv[])
     
       //complimentary filter
 
-		/*finalAngle_x += compFilter(angle_gx, )
-		 *finalAngle_y += compFilter(angle_gy, )
-		 *finalAngle_z += compFilter(angle_gz, )
-		 */
+      finalAngle_x += compFilter(angle_gx, accel_x, gyro_x)
+      finalAngle_y += compFilter(angle_gy, accel_y, gyro_y)
+      finalAngle_z += compFilter(angle_gz, accel_z, gyro_z)
+		 
 
     //output for excel data table -> graph.
 	` 
