@@ -69,16 +69,16 @@ int main(int argc, char *argv[])
       angle_gy += (gyro_y.at(i) - gyro_y.at(i-1)) * DELTA_TIME;
       angle_gz += (gyro_z.at(i) - gyro_z.at(i-1)) * DELTA_TIME;
     }
-    
+
       //complimentary filter
 
       finalAngle_x += compFilter(angle_gx, accel_x, gyro_x)
       finalAngle_y += compFilter(angle_gy, accel_y, gyro_y)
       finalAngle_z += compFilter(angle_gz, accel_z, gyro_z)
-		 
 
     //output for excel data table -> graph.
-	` 
+	`
     usleep(DELTA_TIME);
 	}
 }
+{}
