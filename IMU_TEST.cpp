@@ -5,12 +5,23 @@
 #include <cmath>
 //delta time should be 10 ms
 #define DELTA_TIME 10
+#define GYRO_CONST 0.98
+#define ACCEL_CONST 0.02
+#define PULL_TIME 360000
+#define SPLIT_MARKER 5
+
+float compFilter(accel_data, gyro_data) 
+{
+	finalAngle = GYRO_CONST * gyro_data + ACCEL_CONST * (accel_data);
+}
 
 float median(vector<int> arr)
 {
-  sort(arr.begin(), arr.end());
-  if(re % 2 == 1) return arr[re/2];
-  else (re % 2 == 0) return (arr[re/2] + arr[re/2+1]) / 2;
+  sort(arr.end()-SPLIT_MARKER, arr.end());
+  if int % 5 == 0
+  {
+      if(re.size() % 2 == 1) return arr[re.size()-1 / 2];
+  }
 }
 
 void read_imu( uint8_t card, uint8_t reg) //reads the raw values
@@ -34,7 +45,7 @@ int main(int argc, char *argv[])
   int median_ax, median_ay, median_az, median_gx, median_gy, median_gz;
   int angle_ax, angle_ay, angle_az;
   int angle_gx, angle_gy, angle_gz;
-	for(int i = 0; i < 360000; i++) // 100HZ of data samples for 1 hr
+	for(int i = 0; i < PULL_TIME; i++) // 100HZ of data samples for 1 hr
 	{
 		acc_x.insert(read_imu(card, 0x3b));
 		acc_y.insert(read_imu(card, 0x3d));
@@ -55,13 +66,18 @@ int main(int argc, char *argv[])
     //integrate gyro values into angle
     if(i != 0)
     {
-      angle_gx += (gyro_x.at(i) - gyro_x.at(i-1)) * DELTA_TIME;
-      angle_gy += (gyro_y.at(i) - gyro_y.at(i-1)) * DELTA_TIME;
-      angle_gz += (gyro_z.at(i) - gyro_z.at(i-1)) * DELTA_TIME;
+      angle_gx += (gyro_x.at(i) - gyro_x.at(i-1)) * DELTA_TIME/2;
+      angle_gy += (gyro_y.at(i) - gyro_y.at(i-1)) * DELTA_TIME/2;
+      angle_gz += (gyro_z.at(i) - gyro_z.at(i-1)) * DELTA_TIME/2;
     }
     
-    //complimentary filter
-    
+      //complimentary filter
+
+      finalAngle_x += compFilter(angle_gx, accel_x);
+      finalAngle_y += compFilter(angle_gy, accel_y);
+      finalAngle_z += compFilter(angle_gz, accel_z);
+		 
+
     //output for excel data table -> graph.
 	` 
     usleep(DELTA_TIME);
