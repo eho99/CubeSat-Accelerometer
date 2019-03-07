@@ -79,9 +79,9 @@ int main(int argc, char *argv[])
 		//integrate gyro values into angle
     if(i != 0)
     {
-      angle_gx += ((gyro_x(i) - gyro_x(i-1)) / 2) * DELTA_TIME;
-      angle_gy += ((gyro_y(i) - gyro_y(i-1)) / 2) * DELTA_TIME;
-      angle_gz += ((gyro_z(i) - gyro_z(i-1)) / 2) * DELTA_TIME;
+      angle_gx += ((gyro_x.at(i) - gyro_x.at(i-1)) / 2) * DELTA_TIME;
+      angle_gy += ((gyro_y.at(i) - gyro_y.at(i-1)) / 2) * DELTA_TIME;
+      angle_gz += ((gyro_z.at(i) - gyro_z.at(i-1)) / 2) * DELTA_TIME;
     }
 
       //complimentary filter
