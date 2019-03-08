@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <sidekiq_api.h>
 #include <cmath>
+#include <unistd.h>
+using namespace std;
 //delta time should be 10 ms
 #define DELTA_TIME 10
 #define GYRO_CONST 0.98
@@ -10,8 +12,9 @@
 #define PULL_NUMBER 360000
 #define SPLIT_MARKER 5
 
-float compFilter(accel_data, gyro_data)
+void compFilter(float accel_data, float gyro_data)
 {
+	float finalAngle;
 	finalAngle = GYRO_CONST * gyro_data + ACCEL_CONST * (accel_data);
 }
 
@@ -21,15 +24,15 @@ float median(vector<float> arr)
 	//Take last five values of vector
 	//Take 2nd index
 	//Pushback value into vector
-	while(true)
+	while(1)
 		{
-			if arr.size() == SPLIT_MARKER;
+			if( arr.size() == SPLIT_MARKER)
 			{
 				sort(arr.end()-SPLIT_MARKER, arr.end())
 				return arr[re.size() / 2];
 				arr.clear();
 			}
-			elif arr.size() >= 6;
+			elif( arr.size() >= 6)
 			{
 				arr.clear()
 			}
@@ -57,6 +60,7 @@ int main(int argc, char *argv[])
   float median_ax, median_ay, median_az, median_gx, median_gy, median_gz;
   float angle_ax, angle_ay, angle_az;
   float angle_gx, angle_gy, angle_gz;
+	float finalAngle_x, finalAngle_y, finalAngle_z;
 	for(int i = 0; i < PULL_NUMBER; i++) // 100HZ of data samples for 1 hr
 	{
 		acc_x.insert(read_imu(card, 0x3b));
@@ -79,18 +83,17 @@ int main(int argc, char *argv[])
 		//integrate gyro values into angle
     if(i != 0)
     {
-      angle_gx += ((gyro_x(i) - gyro_x(i-1)) / 2) * DELTA_TIME;
-      angle_gy += ((gyro_y(i) - gyro_y(i-1)) / 2) * DELTA_TIME;
-      angle_gz += ((gyro_z(i) - gyro_z(i-1)) / 2) * DELTA_TIME;
+      angle_gx += ((gyro_x.at(i) - gyro_x.at(i-1)) / 2) * DELTA_TIME;
+      angle_gy += ((gyro_y.at(i) - gyro_y.at(i-1)) / 2) * DELTA_TIME;
+      angle_gz += ((gyro_z.at(i) - gyro_z.at(i-1)) / 2) * DELTA_TIME;
     }
 
       //complimentary filter
-      finalAngle_x += compFilter(angle_gx, accel_x);
-      finalAngle_y += compFilter(angle_gy, accel_y);
-      finalAngle_z += compFilter(angle_gz, accel_z);
+      finalAngle_x += compFilter(angle_gx, acc_x);
+      finalAngle_y += compFilter(angle_gy, acc_y);
+      finalAngle_z += compFilter(angle_gz, acc_z);
 
     //output for excel data table -> graph.
-	`
     usleep(DELTA_TIME);
 	}
 }
