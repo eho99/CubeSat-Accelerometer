@@ -79,8 +79,8 @@ int read_imu(uint8_t card, uint8_t reg) //reads the raw values
 	int32_t status = 0;
 	uint8_t low_byte = 0, high_byte = 0;
 	int result;
-	//status = skiq_read_accel_reg(card, reg, &high_byte, 1);
-	//if (status == 0) status = skiq_read_accel_reg(card, reg + 1, &low_byte, 1);
+	status = skiq_read_accel_reg(card, reg, &high_byte, 1);
+	if (status == 0) status = skiq_read_accel_reg(card, reg + 1, &low_byte, 1);
 	if (status == 0)
 	{
 		result = (((int)high_byte) << 8) | low_byte;
@@ -90,7 +90,7 @@ int read_imu(uint8_t card, uint8_t reg) //reads the raw values
 }
 int main(int argc, char *argv[])
 {
-	//uint_8t card = 0;
+	uint_8t card = 0;
 	vector<float> acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z; //raw_values
 	float median_ax = 0, median_ay = 0, median_az = 0, median_gx = 0, median_gy = 0, median_gz = 0;
 	float angle_ax = 0, angle_ay = 0, angle_az = 0;
@@ -139,6 +139,6 @@ int main(int argc, char *argv[])
 		}
 
 		//output for excel data table -> graph.
-		//usleep(DELTA_TIME);
+		usleep(DELTA_TIME);
 	}
 }
