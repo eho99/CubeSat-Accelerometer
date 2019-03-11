@@ -28,10 +28,6 @@ float compFilter(float accel_data, float gyro_data)
 float median(vector<float> arr)
 {
 
-
-		//While vector size / 1 >= 1
-		//Take last five values of vector
-		//Take 2nd index
 	if(SPLIT_MARKER % 2 == 0 )
 		while (1)
 		{
@@ -49,8 +45,6 @@ float median(vector<float> arr)
 			else
 				ready = 0;
 				break;
-
-	
 		}
 	else
 		while (1)
@@ -70,8 +64,6 @@ float median(vector<float> arr)
 				ready = 0;
 				break;
 		}
-
-	
 }
 
 int read_imu(uint8_t card, uint8_t reg) //reads the raw values
