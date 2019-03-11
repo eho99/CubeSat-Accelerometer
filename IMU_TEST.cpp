@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 
 		
 		//complimentary filter
-		if (ready = 0)
+		if (ready != 0)
 		{
 			finalAngle_x += compFilter(angle_gx, angle_ax);
 			finalAngle_y += compFilter(angle_gy, angle_ay);
