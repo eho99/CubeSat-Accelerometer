@@ -25,45 +25,34 @@ float compFilter(float accel_data, float gyro_data)
 	return GYRO_CONST * gyro_data + ACCEL_CONST * accel_data;
 }
 
-float median(vector<float> arr)
+int median(vector<double> arr)
 {
-
-	if(SPLIT_MARKER % 2 == 0 )
-		while (1)
-		{
-			if (arr.size() >= (SPLIT_MARKER + 1))
-			{
-				arr.clear();
-			}
-			if (arr.size() == SPLIT_MARKER)
-			{
-				sort(arr.end() - SPLIT_MARKER, arr.end());
-				return ((arr[arr.size() / 2 - 1]) + arr[arr.size() / 2 - 1]) / 2;
-				arr.clear();
-				break;
-			}
-			else
-				ready = 0;
-				break;
-		}
+	if (arr.size() < SPLIT_MARKER)
+	{
+		ready = 0;
+	}
 	else
-		while (1)
+	{
+		if (arr.size() >= (SPLIT_MARKER + 1))
 		{
-			if (arr.size() >= (SPLIT_MARKER + 1))
-			{
-				arr.clear();
-			}
-			if (arr.size() == SPLIT_MARKER)
+			arr.clear();
+		}
+		else
+		{
+			if (SPLIT_MARKER % 2 != 0)
 			{
 				sort(arr.end() - SPLIT_MARKER, arr.end());
 				return arr[arr.size() / 2];
 				arr.clear();
-				break;
 			}
 			else
-				ready = 0;
-				break;
+			{
+				sort(arr.end() - SPLIT_MARKER, arr.end());
+				return ((arr[arr.size() / 2 - 1]) + arr[arr.size() / 2 - 1]) / 2;
+				arr.clear();
+			}
 		}
+	}	
 }
 
 int read_imu(uint8_t card, uint8_t reg) //reads the raw values
