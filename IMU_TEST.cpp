@@ -73,15 +73,15 @@ int main(int argc, char *argv[])
 {
 	uint_8t card = 0;
 	vector<float> acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z; //raw_values
-	float median_ax = 0, median_ay = 0, median_az = 0, median_gx = 0, median_gy = 0, median_gz = 0;
-	float angle_ax = 0, angle_ay = 0, angle_az = 0;
-	float angle_gx = 0, angle_gy = 0, angle_gz = 0;
-	float finalAngle_x = 0, finalAngle_y = 0, finalAngle_z = 0;
+	float median_ax, median_ay, median_az, median_gx, median_gy, median_gz = 0;
+	float angle_ax, angle_ay, angle_az = 0;
+	float angle_gx, angle_gy, angle_gz = 0;
+	float finalAngle_x, finalAngle_y, finalAngle_z = 0;
 	for (int i = 0; i < PULL_NUMBER; i++) // 100HZ of data samples for 1 hr
 	{
-		acc_x.push_back(read_imu(card, 0x3b));
-		acc_y.push_back(read_imu(card, 0x3d));
-		acc_z.push_back(read_imu(card, 0x3f));
+		acc_x.push_back(read_imu(card, 0x3B));
+		acc_y.push_back(read_imu(card, 0x3D));
+		acc_z.push_back(read_imu(card, 0x3F));
 		gyro_x.push_back(read_imu(card, 0x43));
 		gyro_y.push_back(read_imu(card, 0x45));
 		gyro_z.push_back(read_imu(card, 0x47));
