@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 		//arctan A for accel
 		if (ready != 0)
 		{
-			angle_ax += atan2(median_ay, median_ax);
+			angle_ax += atan2(median_ax, median_az);
 			angle_ay += atan2(median_az, median_ax);
 			angle_az += atan2(median_az, median_ay);
 		}
