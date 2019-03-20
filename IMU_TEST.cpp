@@ -79,9 +79,9 @@ int main(int argc, char *argv[])
 	float finalAngle_x, finalAngle_y, finalAngle_z = 0;
 	for (int i = 0; i < PULL_NUMBER; i++) // 100HZ of data samples for 1 hr
 	{
-		acc_x.push_back(read_imu(card, 0x3B));
-		acc_y.push_back(read_imu(card, 0x3D));
-		acc_z.push_back(read_imu(card, 0x3F));
+		acc_x.push_back(read_imu(card, 0x3b));
+		acc_y.push_back(read_imu(card, 0x3d));
+		acc_z.push_back(read_imu(card, 0x3f));
 		gyro_x.push_back(read_imu(card, 0x43));
 		gyro_y.push_back(read_imu(card, 0x45));
 		gyro_z.push_back(read_imu(card, 0x47));
