@@ -104,9 +104,9 @@ int main(int argc, char *argv[])
 		{
 			if (i != 0)
 			{
-				angle_gx += (gyro_x.at(i) + angle_gx) * DELTA_TIME;
-				angle_gy += (gyro_y.at(i) + angle_gy) * DELTA_TIME;
-				angle_gz += (gyro_z.at(i) + angle_gz) * DELTA_TIME;
+				angle_gx += (gyro_x[i] + finalAngle_x) * DELTA_TIME;
+				angle_gy += (gyro_y[i] + finalAngle_y) * DELTA_TIME;
+				angle_gz += (gyro_z[i] + finalAngle_z) * DELTA_TIME;
 			}
 		}
 
