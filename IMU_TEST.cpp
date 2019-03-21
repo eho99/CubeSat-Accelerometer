@@ -12,6 +12,8 @@ delta time should be 10 ms
 #define ACCEL_CONST 0.02
 #define PULL_NUMBER 360000
 #define SPLIT_MARKER 5
+#define FSR 1000 //FSR defined in gyroscope config
+#define GYRO_CONFIG 16
 
 /* 
 so basically the entire process in int main can run when there are enough received values from
@@ -23,6 +25,11 @@ int ready;
 float compFilter(float accel_data, float gyro_data)
 {
 	return GYRO_CONST * gyro_data + ACCEL_CONST * accel_data;
+}
+
+void gyro_config()
+{
+
 }
 
 int median(vector<double> arr)
@@ -77,14 +84,26 @@ int main(int argc, char *argv[])
 	float angle_ax, angle_ay, angle_az = 0;
 	float angle_gx, angle_gy, angle_gz = 0;
 	float finalAngle_x, finalAngle_y, finalAngle_z = 0;
+	
+	//this is the config code that changes the Gyro Config register to 1000dps 
+	uint8_t config_byte = 0;
+	uint8_t right_side = 0, left_side = 0;
+	skiq_read_accel_reg(card, 0x1B, &config_byte, 1);
+	left_side = config_byte >> 5;
+	left_side = config_byte << 5;
+	right_side = config_byte & 7;
+	left = left | right;
+	left = left | GYRO_CONFIG;
+	skiq_write_accel_reg(card,0x1B, &config_byte,1);
+	
 	for (int i = 0; i < PULL_NUMBER; i++) // 100HZ of data samples for 1 hr
 	{
 		acc_x.push_back(read_imu(card, 0x3b));
 		acc_y.push_back(read_imu(card, 0x3d));
 		acc_z.push_back(read_imu(card, 0x3f));
-		gyro_x.push_back(read_imu(card, 0x43));
-		gyro_y.push_back(read_imu(card, 0x45));
-		gyro_z.push_back(read_imu(card, 0x47));
+		gyro_x.push_back(read_imu(card, 0x43)* FSR / (pow(2,15)-1);
+		gyro_y.push_back(read_imu(card, 0x45)* FSR / (pow(2,15)-1);
+		gyro_z.push_back(read_imu(card, 0x47)* FSR / (pow(2,15)-1);
 
 		//median filter for accel
 		median_ax = median(acc_x);
