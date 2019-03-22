@@ -39,7 +39,7 @@ int main()
 		gyro_y = stod(fgyro_y);
 		median_ay = stod(faccel_y);
 		median_az = stod(faccel_z);
-    
+
     printf("\n"); //make look sexy
 		printf("Iteration %d\n", i);
 
@@ -52,10 +52,10 @@ int main()
 		printf("gyro angle y is %.9f\n", finalAngle_y);
 
 		//complementary filter
-		finalAngle_y += compFilter(angle_gy, angle_ay); //needed to help calculate delta theta 
+		finalAngle_y += compFilter(angle_gy, angle_ay); //needed to help calculate delta theta
 		printf("final angle y is %.9f\n", finalAngle_y);
 		printf("------------------"); //make look sexy
-		
+
 		//output
 		fstream data("output.csv")
 		data << "Accel Y, Accel Z, Gyro Y, Delta Theta Y, Accel Angle Y, Final Angle Y" << endl;
@@ -67,4 +67,3 @@ int main()
 
 	}
 }
-
