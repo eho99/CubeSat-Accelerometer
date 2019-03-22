@@ -55,6 +55,15 @@ int main()
 		finalAngle_y += compFilter(angle_gy, angle_ay); //needed to help calculate delta theta 
 		printf("final angle y is %.9f\n", finalAngle_y);
 		printf("------------------"); //make look sexy
+		
+		//output
+		fstream data("output.csv")
+		data << "Accel Y, Accel Z, Gyro Y, Delta Theta Y, Accel Angle Y, Final Angle Y" << endl;
+		for(int i = 0; i < 49; i++)
+		{
+			data << ("%f, %f, %f, %f, %f, %f", median_ay, median_az, gyro_y, angle_gy, angle_ay, finalAngle_y) << endl
+		}
+		usleep(
 
 	}
 }
